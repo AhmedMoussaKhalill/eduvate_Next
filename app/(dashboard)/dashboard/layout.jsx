@@ -1,17 +1,14 @@
-import React from "react";
-import SideBar from "./_components/sidebar";
-import RightBar from "./_components/RightBar";
+'use client';
+import React from 'react';
+import SideBar from './_components/sidebar';
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div>
+    <div className="min-h-screen">
       <SideBar />
-
-      {/* <div className="pr-64">
-          <Navbar />
-        </div> */}
-      <div className="pl-64">{children}</div>
-      {/* <RightBar /> */}
+      <main className="ml-60">
+        <div className="p-4">{children}</div>
+      </main>
     </div>
   );
 };

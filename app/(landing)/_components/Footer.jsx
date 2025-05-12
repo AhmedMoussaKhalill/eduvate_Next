@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { Icons } from "@/components/global/icons/icons";
 import { Caveat, Courgette } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
 
 
 const caveat = Caveat({

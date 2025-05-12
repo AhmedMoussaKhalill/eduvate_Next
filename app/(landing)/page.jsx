@@ -1,7 +1,6 @@
-import React from "react";
-import Hero from "./_components/Hero";
-import Features from "./_components/Features";
-
+import React from 'react';
+import Hero from './_components/Hero';
+import Features from './_components/Features';
 
 const page = () => {
   return (

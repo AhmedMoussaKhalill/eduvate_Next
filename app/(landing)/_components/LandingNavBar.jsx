@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { Caveat } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useClerk, UserButton, useUser } from "@clerk/nextjs";
+
 import { Icons } from "@/components/icons";
 
 const caveat = Caveat({
@@ -11,6 +14,9 @@ const caveat = Caveat({
 });
 
 const LandingNavBar = () => {
+  const { user } = useUser();
+  const { openSignIn, openUserProfile } = useClerk();
+
   return (
     <header className="mx-auto max-w-7xl px-6 py-7">
       <div className="flex items-center justify-between">
@@ -43,25 +49,42 @@ const LandingNavBar = () => {
           </div>
         </div>
 
-        <div className="z-50 flex items-center space-x-4 text-sm font-medium">
-          <Link
-            href="/sign-in"
-            className="transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Login
-          </Link>
-          <Link
-            href="/sign-up"
-            className="transition-all duration-300 hover:-translate-y-0.5"
-          >
+        {user ? (
+          <div className="z-50 flex items-center space-x-3">
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: {
+                    width: "35px",
+                    height: "35px",
+                  },
+                },
+              }}
+            />
+            <div className="flex flex-col space-y-0.5">
+              <h2 className="text-sm">{user.fullName || "User"}</h2>
+              <p className="text-xs text-neutral-500">
+                {user.primaryEmailAddress?.emailAddress}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="z-50 flex items-center space-x-4 text-sm font-medium">
+            <div
+              onClick={openSignIn}
+              className="transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+            >
+              Login
+            </div>
             <Button
               variant="default"
-              className="rounded-full bg-gradient-to-tr from-blue-700 via-blue-600 to-blue-500 px-6"
+              onClick={openSignIn}
+              className="rounded-full bg-gradient-to-tr from-blue-700 via-blue-600 to-blue-500 px-6 transition-all duration-300 hover:-translate-y-0.5"
             >
               Sign up
             </Button>
-          </Link>
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
